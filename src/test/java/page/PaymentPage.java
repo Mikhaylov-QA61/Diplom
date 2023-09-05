@@ -3,6 +3,9 @@ package page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import data.DataHelper;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
@@ -19,27 +22,42 @@ public class PaymentPage {
     private final SelenideElement holderField = $(byXpath("/html/body/div[1]/div/form/fieldset/div[3]/span/span[1]/span/span/span[2]/input"));
     private final SelenideElement cvcField = form.$("input[placeholder='999']");
     private final SelenideElement buttonContinue = form.$$("button").findBy(Condition.text("Продолжить"));
+    private final SelenideElement notificationGood = $(".notification_status_ok");
+    private final SelenideElement notificationError = $(".notification_status_error");
 
-    public void PaymentPage(){
+    public void PaymentPage() {
         heading.shouldBe(Condition.visible);
     }
 
-    public void setCardNumber(String number){
-        cardNumberField.setValue(number);
+    public void setCardNumber(DataHelper.cardNumber number) {
+        cardNumberField.setValue(String.valueOf(number));
     }
-    public void setMonth(String month){
+
+    public void setMonth(String month) {
         monthsField.setValue(month);
     }
-    public void setYear(String year){
+
+    public void setYear(String year) {
         yearsField.setValue(year);
     }
-    public void setHolder(String hold){
+
+    public void setHolder(String hold) {
         holderField.setValue(hold);
     }
-    public void setCVC(String Cvc){
+
+    public void setCVC(String Cvc) {
         cvcField.setValue(Cvc);
     }
-    public void buttonContinueClick(){
+
+    public void buttonContinueClick() {
         buttonContinue.click();
+    }
+
+    public void notificationGood() {
+        notificationGood.shouldBe(Condition.visible, Duration.ofSeconds(10)).shouldHave(Condition.exactText("Успешно\n" + "Операция одобрена Банком."));
+    }
+
+    public void notificationError(){
+        notificationError.shouldBe(Condition.visible,Duration.ofSeconds(10)).shouldHave(Condition.exactText("Ошибка\n" + "Ошибка! Банк отказал в проведении операции"));
     }
 }
