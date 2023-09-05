@@ -21,6 +21,7 @@ public class CreditPage {
     private final SelenideElement cvcField = form.$("input[placeholder='999']");
     private final SelenideElement buttonContinue = form.$$("button").findBy(Condition.text("Продолжить"));
     private final SelenideElement notificationGood = $(".notification_status_ok");
+    private final SelenideElement notificationError = $(".notification_status_error");
 
     public void PaymentPage() {
         heading.shouldBe(Condition.visible);
@@ -50,7 +51,21 @@ public class CreditPage {
         buttonContinue.click();
     }
 
-    public void notificationGood() {
+    public void checkNotificationGood() {
         notificationGood.shouldBe(Condition.visible, Duration.ofSeconds(10)).shouldHave(Condition.exactText("Успешно\n" + "Операция одобрена Банком."));
     }
+
+    public void checkNotificationError() {
+        notificationError.shouldBe(Condition.visible, Duration.ofSeconds(10)).shouldHave(Condition.exactText("Ошибка\n" + "Ошибка! Банк отказал в проведении операции"));
+    }
+
+    public void checkNotificationInvalidFormat() {
+        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Неверный формат"));
+    }
+
+    public void checkNotificationRequiredField(){
+        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Поле обязательно для заполнения"));
+    }
+
+
 }

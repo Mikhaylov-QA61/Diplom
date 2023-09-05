@@ -35,7 +35,7 @@ public class SQLHelper {
 
     @SneakyThrows
     private static String getStatus(String requestSQL) {
-        String result = "";
+        String result = null;
         var connection = getConnect();
         result = queryRunner.query(connection, requestSQL, new ScalarHandler<String>());
         System.out.println(result);
@@ -45,9 +45,9 @@ public class SQLHelper {
     @SneakyThrows
     public static void clearDB(){
         var connection = getConnect();
-        queryRunner.execute(connection, "DELETE* FROM credit_request_entity");
-        queryRunner.execute(connection, "DELETE* FROM order_entity");
-        queryRunner.execute(connection, "DELETE* FROM payment_entity");
+        queryRunner.execute(connection, "DELETE FROM credit_request_entity");
+        queryRunner.execute(connection, "DELETE FROM order_entity");
+        queryRunner.execute(connection, "DELETE FROM payment_entity");
     }
 
 
