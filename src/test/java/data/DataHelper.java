@@ -64,6 +64,12 @@ public class DataHelper {
         return year;
     }
 
+    public static String getCurrentYear(){
+        DateTimeFormatter to = DateTimeFormatter.ofPattern("YY");
+        String year = LocalDate.now().format(to);
+        return year;
+    }
+
     public static String getInvalidYearAboveRange() {
         DateTimeFormatter to = DateTimeFormatter.ofPattern("YY");
         int date = 5 + Integer.parseInt(LocalDate.now().format(to));
@@ -74,7 +80,7 @@ public class DataHelper {
 
     public static String getInvalidYearBelowRange() {
         DateTimeFormatter to = DateTimeFormatter.ofPattern("YY");
-        int date = Integer.parseInt(LocalDate.now().format(to));
+        int date = Integer.parseInt(LocalDate.now().format(to)) -1;
         String year = String.valueOf((Math.random() * (date)) + 0);
         return year;
     }
@@ -151,7 +157,7 @@ public class DataHelper {
         return holder;
     }
 
-    public static String getInvalidHolderWithHyphenateCN() {
+    public static String getInvalidHolderCN() {
         Faker faker = new Faker(new Locale("zh_CN"));
 
         String holder = faker.name().firstName();
@@ -184,12 +190,14 @@ public class DataHelper {
     }
 
     public static String getInvalidCVCCodeOneNumber() {
-        String code = String.valueOf(Math.random() * (8) + 1);
+        int number = (int) (Math.random() * (8) + 1);
+        String code = String.valueOf(number);
         return code;
     }
 
     public static String getInvalidCVCCodeTwoNumber() {
-        String code = String.valueOf(Math.random() * (89) + 10);
+        int number = (int) Math.random() * (89) + 10;
+        String code = String.valueOf(number);
         return code;
     }
 

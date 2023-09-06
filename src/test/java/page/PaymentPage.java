@@ -59,7 +59,7 @@ public class PaymentPage {
     }
 
     public void checkNotificationError(){
-        notificationError.shouldBe(Condition.visible,Duration.ofSeconds(10)).shouldHave(Condition.exactText("Ошибка\n" + "Ошибка! Банк отказал в проведении операции"));
+        notificationError.shouldBe(Condition.visible,Duration.ofSeconds(10)).shouldHave(Condition.exactText("Ошибка\n" + "Ошибка! Банк отказал в проведении операции."));
     }
 
     public void checkNotificationInvalidFormat() {
@@ -70,5 +70,24 @@ public class PaymentPage {
         $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Поле обязательно для заполнения"));
     }
 
+    public void checkNotificationErrorExpirationDate() {
+        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Неверно указан срок действия карты"));
+    }
+
+    public void checkNotificationErrorExpiredCard() {
+        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Истёк срок действия карты"));
+    }
+
+    public void checkNotificationErrorHolderNotFull(){
+        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Укажите имя и фамилию полностью"));
+    }
+
+    public void checkNotificationErrorInvalidCharacters(){
+        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Укажите имя и фамилию полностью"));
+    }
+
+    public void checkNotificationErrorOverFlow(){
+        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Имя и фамилия не должны превышать 20 символов"));
+    }
 
 }
