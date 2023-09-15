@@ -6,29 +6,32 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+
 
 public class SQLHelper {
 
-
-    private static QueryRunner queryRunner = new QueryRunner();
-    private static String url = System.getProperty("mySQL");
+    private static String url = System.getProperty("db.url");
     private static String user = System.getProperty("db.user");
     private static String pass = System.getProperty("db.password");
+    private static QueryRunner queryRunner = new QueryRunner();
 
-    private SQLHelper(){}
-
-
-    private static Connection getConnect() throws SQLException{
-        return DriverManager.getConnection(url,user,pass);
+    private SQLHelper() {
     }
+
+
     @SneakyThrows
-    public static String getPaymentStatus(){
+    private static Connection getConnect() {
+        return DriverManager.getConnection(url, user, pass);
+    }
+
+    @SneakyThrows
+    public static String getPaymentStatus() {
         var requestSQL = "SELECT status FROM payment_entity ORDER BY created DESC Limit 1";
         return getStatus(requestSQL);
     }
+
     @SneakyThrows
-    public static String getCreditStatus(){
+    public static String getCreditStatus() {
         var requestSQL = "SELECT status FROM credit_request_entity ORDER BY created DESC Limit 1";
         return getStatus(requestSQL);
     }
@@ -43,14 +46,12 @@ public class SQLHelper {
     }
 
     @SneakyThrows
-    public static void clearDB(){
+    public static void clearDB() {
         var connection = getConnect();
         queryRunner.execute(connection, "DELETE FROM credit_request_entity");
         queryRunner.execute(connection, "DELETE FROM order_entity");
         queryRunner.execute(connection, "DELETE FROM payment_entity");
     }
-
-
 
 
 }

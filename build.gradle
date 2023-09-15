@@ -32,13 +32,13 @@ dependencies {
     testImplementation 'io.qameta.allure:allure-selenide:2.16.1'
     testImplementation 'io.rest-assured:rest-assured:4.3.0'
 
+
 }
 
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
-    systemProperty 'mySQL', System.getProperty('db.url', 'jdbc:mysql://localhost:3306/app')
-    systemProperty 'postgreSQL', System.getProperty('db.url','jdbc:postgresql://localhost:5432/app')
+    systemProperty 'db.url', System.getProperty('db.url')
     systemProperty 'db.user', System.getProperty('db.user', 'app')
     systemProperty 'db.password', System.getProperty('db.password', 'pass')
     systemProperty 'SUT.url', System.getProperty('SUT.url', 'http://localhost:8080/')
