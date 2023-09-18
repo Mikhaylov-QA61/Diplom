@@ -20,6 +20,7 @@ public class PurchaseTravelingDayTest {
         SQLHelper.clearDB();
 
     }
+
     @BeforeAll
     static void setUpAll() {
 
@@ -196,7 +197,7 @@ public class PurchaseTravelingDayTest {
 
     // Negative scenarios
 
-    @Test
+    @Test // БАГ
     @Order(9)
     @DisplayName("All fields are empty(PaymentPage)")
     void paymentFormShouldHaveAllEmptyField() {
@@ -540,7 +541,7 @@ public class PurchaseTravelingDayTest {
         assertEquals(null, actual);
     }
 
-    @Test
+    @Test // БАГ
     @Order(28)
     @DisplayName("Month below range ,rest fields are filled with valid data(CreditPage)")
     void CreditFormShouldHaveMonthBelowRangeRestFieldValid() {
@@ -560,7 +561,7 @@ public class PurchaseTravelingDayTest {
     }
 
     @Test
-    @Order(29)
+    @Order(29) // БАГ
     @DisplayName("Previous month,rest fields are filled with valid data(PaymentPage)")
     void paymentFormShouldHavePreviousMonthRestFieldValid() {
         StartPage start = new StartPage();
@@ -573,13 +574,13 @@ public class PurchaseTravelingDayTest {
         paymentPage.setHolder(DataHelper.getValidHolderENG());
         paymentPage.setCVC(DataHelper.getValidCVCCode());
         paymentPage.buttonContinueClick();
-        paymentPage.checkNotificationErrorExpirationDate();
+        paymentPage.checkNotificationErrorExpiredCard();
         String actual = SQLHelper.getPaymentStatus();
         assertEquals(null, actual);
     }
 
     @Test
-    @Order(30)
+    @Order(30) // БАГ
     @DisplayName("Previous month,rest fields are filled with valid data(CreditPage)")
     void CreditFormShouldHavePreviousMonthRestFieldValid() {
         StartPage start = new StartPage();
@@ -592,7 +593,7 @@ public class PurchaseTravelingDayTest {
         creditPage.setHolder(DataHelper.getValidHolderENG());
         creditPage.setCVC(DataHelper.getValidCVCCode());
         creditPage.buttonContinueClick();
-        creditPage.checkNotificationErrorExpirationDate();
+        creditPage.checkNotificationErrorExpiredCard();
         String actual = SQLHelper.getCreditStatus();
         assertEquals(null, actual);
     }
@@ -934,7 +935,7 @@ public class PurchaseTravelingDayTest {
         creditPage.setHolder(DataHelper.getInvalidHolderWithHyphenatedRus());
         creditPage.setCVC(DataHelper.getValidCVCCode());
         creditPage.buttonContinueClick();
-        creditPage.checkNotificationErrorHolderNotFull();
+        creditPage.checkNotificationErrorInvalidCharacters();
         String actual = SQLHelper.getCreditStatus();
         assertEquals(null, actual);
     }
@@ -953,7 +954,7 @@ public class PurchaseTravelingDayTest {
         paymentPage.setHolder(DataHelper.getInvalidHolderWithHyphenatedENG());
         paymentPage.setCVC(DataHelper.getValidCVCCode());
         paymentPage.buttonContinueClick();
-        paymentPage.checkNotificationErrorHolderNotFull();
+        paymentPage.checkNotificationErrorInvalidCharacters();
         String actual = SQLHelper.getPaymentStatus();
         assertEquals(null, actual);
     }
@@ -972,7 +973,7 @@ public class PurchaseTravelingDayTest {
         creditPage.setHolder(DataHelper.getInvalidHolderWithHyphenatedENG());
         creditPage.setCVC(DataHelper.getValidCVCCode());
         creditPage.buttonContinueClick();
-        creditPage.checkNotificationErrorHolderNotFull();
+        creditPage.checkNotificationErrorInvalidCharacters();
         String actual = SQLHelper.getCreditStatus();
         assertEquals(null, actual);
     }

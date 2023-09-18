@@ -83,7 +83,7 @@ public class PaymentPage {
     }
 
     public void checkNotificationErrorInvalidCharacters(){
-        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Укажите имя и фамилию полностью"));
+        $(".input__sub").shouldBe(Condition.visible).shouldHave(Condition.exactText("Поле может содержать только латиницу, кириллицу или пробел"));
     }
 
     public void checkNotificationErrorOverFlow(){
